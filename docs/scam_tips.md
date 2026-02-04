@@ -6,6 +6,13 @@ permalink: /scam_tips/ # Allows _layouts/default.html to find this page.
 
 # Scam Tips
 
+## To rerun a case if you change something (like the flight and date)
+```tcsh
+> ./case.build --clean-all
+> ./case.build
+> ./case.submit
+```
+
 ## To check the status of the run:
 ```tcsh
 > cd $SCRATCH/cases/<your_case_name>
