@@ -112,12 +112,12 @@ set GET_REFCASE=TRUE
 ```
 
 ## Run the third experiment, the SCAM run
-1. Set up for the third experiment
 <div style="padding: 16px; margin-bottom: 16pt; border-left: .25em solid #0969da; background-color: #f0f7ff; border-radius: 6px;">
   <p style="margin-top: 4px; margin-bottom: 0; color: #0969da;">
     <strong>Note:</strong> We should change exp 2 to write out a number of days of data to the iop history file.  Here we only copy the first days worth of data to the IOP file and only run the SCAM case for 47 timesteps.  We have 3 individual days of IOP data, we could cat them all together and copy that large IOP file over to SCRATCH or just have exp 2 write a number of days worth of data in one history file.
   </p>
 </div>
+1. Set up for the third experiment
 * Copy the IOP file from exp 2 for the correct dates to $SCRATCH
 ```tcsh
 > cp /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.rf01.cosp/run/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.rf01.cosp.cam.h0i.2018-01-15-00000.nc /glade/derecho/scratch/$USER/rf01.IOP.nc
@@ -143,6 +143,11 @@ set PTS_LAT=-54.957001
 ```tcsh
 > cd $HOME/collections/INFORM-COMPASS-cookbook/SCAM_scripts
 > qcmd -- ./create_CAM6_ne30_SCAM_RUN
+```
+
+1. See what the third experiment generated
+```tcsh
+> cd /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_3days_scam.rf01.cosp/run
 ```
 
 ## Next steps
