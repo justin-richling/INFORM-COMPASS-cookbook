@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CESM Run Matrix</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+
+
+</style>
+
+</head>
+
+<body>
+
+<div id="header-bar">
+<h1>INFORM / COMPASS CESM Run Matrix</h1>
+<div><em>Last updated:</em> <span id="last-updated"></span></div>
+</div>
+
+<div class="page-container">
+
+<div>
+<label>Search run name:</label>
+
+<div class="search-wrapper">
+<input type="text" id="search-input" placeholder="Type to filter runs…">
+<span id="clear-search">✕</span>
+</div>
+
+<div class="controls">
+<button id="expand-all">Expand All</button>
+<button id="collapse-all">Collapse All</button>
+</div>
+
+</div>
+
+<div id="run-count"></div>
+
+<table id="matrix">
+<thead>
+<tr>
+<th>Run Name / Details</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+</div>
+
+<script>
+const INDENT = 24;
+
+let runs = [];
+let filteredRuns = [];
+let currentPage = 1;
+
+// ------------------------------
+// Tooltip dictionary (loaded from external JSON)
+// ------------------------------
+let tooltips = {};
+
+// Initialize tooltips first, then load run matrix
+function initTooltipsAndRender() {
+  fetch("tooltips.json")
+    .then(r => r.json())
+    .then(data => {
+      tooltips = data;
+      fetchRunMatrix();
+      fetchLastUpdated();
+    })
+    .catch(err => console.error("Failed to load tooltips.json:", err));
+}
+
+// ------------------------------
+// Tooltip wrapper
+// ------------------------------
+function wrapTooltip(text) {
+  const key = text.split("=")[0].trim();
+  if (tooltips[key]) {
+    const tooltipText = tooltips[key].replace(/\n/g, "<br>");
+    return `<span class="tooltip" data-tooltip="${tooltipText}">${text}</span>`;
+  }
+  return text;
+}
+
+// ------------------------------
+// Tooltip display
+// ------------------------------
+document.addEventListener("mouseover", function(e) {
+  if (!e.target.classList.contains("tooltip")) return;
+
+  const div = document.createElement("div");
+  div.className = "tooltip-popup";
+  div.innerHTML = e.target.dataset.tooltip;
+
+  document.body.appendChild(div);
+
+  const rect = e.target.getBoundingClientRect();
+  div.style.left = rect.left + window.scrollX + "px";
+  div.style.top = rect.bottom + window.scrollY + 4 + "px";
+
+  e.target.addEventListener("mouseout", () => div.remove(), { once: true });
+});
+
+// ------------------------------
+// Hierarchy builder
+// ------------------------------
+function buildHierarchy(data) {
+  const h = {};
+  data.forEach(run => {
+    const cat = run.category || "Ungrouped";
+    const camp = run.campaign || "Campaign";
+    const cf = run.case_family || "Case Family";
+
+    if (!h[cat]) h[cat] = {};
+    if (!h[cat][camp]) h[cat][camp] = {};
+    if (!h[cat][camp][cf]) h[cat][camp][cf] = [];
+
+    h[cat][camp][cf].push(run);
+  });
+  return h;
+}
+
+// ------------------------------
+// Copy config helper
+// ------------------------------
+function copyRun(run) {
+  const text = JSON.stringify(run, null, 2);
+  navigator.clipboard.writeText(text);
+  alert("Run configuration copied");
+}
+
+// ------------------------------
+// Recursive renderer
+// ------------------------------
+function renderHierarchy(parent, data, level = 0) {
+  Object.keys(data).forEach(key => {
+    const row = document.createElement("tr");
+    row.className = "master-row";
+    row.innerHTML = `
+      <td style="padding-left:${level*INDENT+8}px">
+        <span class="arrow">▶</span> ${key}
+      </td>`;
+    parent.appendChild(row);
+
+    const detailRow = document.createElement("tr");
+    detailRow.className = "detail-row";
+    const cell = document.createElement("td");
+    const nestedTable = document.createElement("table");
+    nestedTable.style.width = "100%";
+    const nestedBody = document.createElement("tbody");
+    nestedTable.appendChild(nestedBody);
+    cell.appendChild(nestedTable);
+    detailRow.appendChild(cell);
+    parent.appendChild(detailRow);
+
+    const value = data[key];
+
+    // ---------- leaf level ----------
+    if (Array.isArray(value)) {
+      value.forEach(run => {
+        if (run.update === false) return;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "run-table-wrapper";
+        wrapper.style.marginLeft = (level*INDENT+8) + "px";
+
+        const runTable = document.createElement("table");
+        runTable.className = "nested";
+
+        const titleRow = document.createElement("tr");
+        titleRow.className = "run-master-row";
+        titleRow.innerHTML = `
+          <th colspan="2">
+            <span class="arrow">▶</span> ${run.run_name}
+          </th>`;
+        runTable.appendChild(titleRow);
+
+        const body = document.createElement("tbody");
+        body.style.display = "none";
+
+        function addRow(label, value) {
+          const r = document.createElement("tr");
+          r.innerHTML = `<th>${label}</th><td>${value}</td>`;
+          body.appendChild(r);
+        }
+
+        addRow("Nudging", run.nudging || "");
+        addRow("COSP", run.cosp || "");
+        addRow("FINCL", Object.keys(run.fincl || {}).join(", "));
+        addRow(
+          "Nudged Vars",
+          `<pre>${(run.nudged_vars || []).map(wrapTooltip).join("\n")}</pre>`
+        );
+        addRow(
+          "COSP Vars",
+          `<pre>${(run.cosp_vars || []).map(wrapTooltip).join("\n")}</pre>`
+        );
+        addRow(
+          "Other Vars",
+          `<pre>${(run.other_vars || []).map(wrapTooltip).join("\n")}</pre>`
+        );
+
+        runTable.appendChild(body);
+        wrapper.appendChild(runTable);
+        cell.appendChild(wrapper);
+
+        titleRow.addEventListener("click", () => {
+          const arrow = titleRow.querySelector(".arrow");
+          const hidden = body.style.display === "none";
+          body.style.display = hidden ? "table-row-group" : "none";
+          arrow.textContent = hidden ? "▼" : "▶";
+        });
+      });
+    }
+    // ---------- recursive ----------
+    else {
+      renderHierarchy(nestedBody, value, level+1);
+    }
+
+    // ---------- toggle ----------
+    row.addEventListener("click", () => {
+      const arrow = row.querySelector(".arrow");
+      const hidden = detailRow.style.display === "" || detailRow.style.display === "none";
+      detailRow.style.display = hidden ? "table-row" : "none";
+      arrow.textContent = hidden ? "▼" : "▶";
+    });
+  });
+}
+
+// ------------------------------
+// Render table
+// ------------------------------
+function renderTable() {
+  const tbody = document.querySelector("#matrix tbody");
+  tbody.innerHTML = "";
+  const hierarchy = buildHierarchy(filteredRuns);
+  renderHierarchy(tbody, hierarchy, 0);
+  document.getElementById("run-count").textContent =
+    `${filteredRuns.length} runs shown (of ${runs.length})`;
+}
+
+// ------------------------------
+// Search
+// ------------------------------
+const searchInput = document.getElementById("search-input");
+const clearBtn = document.getElementById("clear-search");
+
+searchInput.addEventListener("input", e => {
+  const q = e.target.value.toLowerCase().trim();
+  clearBtn.style.display = q ? "block" : "none";
+
+  filteredRuns = q
+    ? runs.filter(r =>
+        r.run_name.toLowerCase().includes(q) ||
+        (r.nudged_vars || []).join(" ").toLowerCase().includes(q) ||
+        (r.cosp_vars || []).join(" ").toLowerCase().includes(q)
+      )
+    : runs;
+
+  renderTable();
+
+  if (q) document.querySelectorAll(".master-row").forEach(r => r.click());
+});
+
+clearBtn.addEventListener("click", () => {
+  searchInput.value = "";
+  clearBtn.style.display = "none";
+  filteredRuns = runs;
+  renderTable();
+});
+
+searchInput.addEventListener("keydown", e => { if (e.key === "Escape") clearBtn.click(); });
+
+// ------------------------------
+// Expand / collapse all
+// ------------------------------
+document.getElementById("expand-all").onclick = () => {
+  document.querySelectorAll(".master-row").forEach(r => {
+    const d = r.nextElementSibling;
+    if (d.style.display !== "table-row") r.click();
+  });
+};
+
+document.getElementById("collapse-all").onclick = () => {
+  document.querySelectorAll(".detail-row").forEach(r => (r.style.display = "none"));
+  document.querySelectorAll(".arrow").forEach(a => (a.textContent = "▶"));
+};
+
+// ------------------------------
+// Fetch run matrix JSON
+// ------------------------------
+function fetchRunMatrix() {
+  fetch(`run_matrix.json?ts=${Date.now()}`)
+    .then(r => r.json())
+    .then(data => {
+      runs = data;
+      filteredRuns = runs;
+      renderTable();
+    })
+    .catch(err => console.error("Failed to load run_matrix.json:", err));
+}
+
+// ------------------------------
+// Last updated
+// ------------------------------
+function fetchLastUpdated() {
+  fetch("run_matrix.json", { method: "HEAD" })
+    .then(r => {
+      const d = new Date(r.headers.get("Last-Modified"));
+      document.getElementById("last-updated").textContent =
+        `${d.toUTCString()} | Local: ${d.toLocaleString()}`;
+    });
+}
+
+// ------------------------------
+// Start everything
+// ------------------------------
+initTooltipsAndRender();
+</script>
+
+</body>
+</html>

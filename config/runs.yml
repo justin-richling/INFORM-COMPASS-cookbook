@@ -1,0 +1,52 @@
+Global Nudging:
+  CAM6-SOCRATES:
+    f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP:
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001
+      atm_in: /glade/derecho/scratch/islas/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001/run/atm_in
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.002
+      atm_in: /glade/derecho/scratch/islas/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001/run/atm_in
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE
+      atm_in: /glade/derecho/scratch/richling/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE/run/atm_in
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE2
+      atm_in: /glade/derecho/scratch/richling/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE2/run/atm_in
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE3
+      atm_in: /glade/derecho/scratch/richling/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE3/run/atm_in
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE4
+      atm_in: /glade/derecho/scratch/richling/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE4/run/atm_in
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE5
+      atm_in: /glade/derecho/scratch/richling/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001_FAKE3/run/atm_in
+    f.e21.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull:
+    - name: f.e21.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_tau12h.001
+      atm_in: /glade/derecho/scratch/islas/f.e21.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_tau12h.001/run/atm_in
+    - name: f.e21.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_tau24h.001
+      atm_in: /glade/derecho/scratch/islas/f.e21.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_tau24h.001/run/atm_in
+    ok:
+    - name: garbage_face_jr_ne30.cesm_stuff
+      atm_in: /glade/derecho/scratch/islas/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001/run/atm_in
+  CAM6-CSET:
+    f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.CSET_nudgeUVfull_withCOSP:
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.CSET_nudgeUVfull_withCOSP_tau6h.001
+      atm_in: /glade/derecho/scratch/islas/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.CSET_nudgeUVfull_withCOSP_tau6h.001/run/atm_in
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.CSET_nudgeUVTfull_withCOSP_tau24h.001
+      atm_in: /glade/derecho/scratch/islas/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.CSET_nudgeUVTfull_withCOSP_tau24h.001/run/atm_in
+  SCAM-TC:
+    f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SCAM:
+    - name: f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.CSET_nudgeUVTfull_withCOSP_tau6h.001
+      atm_in: /glade/derecho/scratch/islas/f.e30_cam6_4_120.FHIST_BGC.f09_f09_mg17.SOCRATES_nudgeUVTfull_withCOSP_tau6h.001/run/atm_in
+Window Nudging:
+  CAM6-SOCRATES:
+    F2000climo.f09_f09_mg17.window.exp:
+    - name: F2000climo.f09_f09_mg17.window.exp.6hrInit.R13.003
+      atm_in: /glade/derecho/scratch/richling/cases/F2000climo.f09_f09_mg17.window.exp.6hrInit.R13.003/user_nl_cam
+    F2000climo.f09_f09_mg17.window.exp.cosp:
+    - name: F2000climo.f09_f09_mg17.window.exp.cosp.120hrInit.R13.003
+      atm_in: /glade/derecho/scratch/richling/cases/F2000climo.f09_f09_mg17.window.exp.cosp.120hrInit.R13.003/user_nl_cam
+Initialized PPE:
+  CAM6-SOCRATES:
+    F2000climo.f09_f09_mg17.window.exp_FAKESIES:
+    - name: F2000climo.f09_f09_mg17.window.exp.6hrInit.R13.003_also_fake
+      atm_in: /glade/derecho/scratch/richling/cases/F2000climo.f09_f09_mg17.window.exp.6hrInit.R13.003/user_nl_cam
+  CAM7-SOCRATES:
+    F2000climo.f09_f09_mg17.window.exp_FAKESIES2:
+    - name: F2000climo.f09_f09_mg17.window.exp.6hrInit.R13.003_fake
+      atm_in: /glade/derecho/scratch/richling/cases/F2000climo.f09_f09_mg17.window.exp.6hrInit.R13.003/user_nl_cam

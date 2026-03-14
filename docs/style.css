@@ -1,0 +1,87 @@
+body { font-family: sans-serif; margin: 0; padding: 0; }
+    #header-bar { background: #f3f3f3; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+    #header-bar h1 { margin: 0; font-size: 1.5em; }
+    #header-bar em { font-size: 0.9em; }
+
+    .search-wrapper { position: relative; display: inline-block; margin: 10px 0; }
+    #search-input { padding: 6px 24px 6px 6px; width: 300px; }
+    #clear-search { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 14px; color: #666; display: none; }
+    #clear-search:hover { color: #000; }
+
+    table { width: 100%; border-collapse: collapse; border: 1px solid #ccc; table-layout: fixed; }
+    th, td { padding: 8px 10px; vertical-align: top; border: 1px solid #ddd; text-align: left; }
+    th { background: #f3f3f3; font-weight: 600; white-space: nowrap; }
+
+    tr.master-row { cursor: pointer; font-weight: 600; background: #fff; }
+
+    tr.detail-row { display: none; }
+    tr.detail-row td { background: #fafafa; padding: 10px; }
+
+    table.nested { width: 100%; border-collapse: collapse; table-layout: auto; border: 1px solid #bbb; margin-top: 4px; }
+    table.nested th, table.nested td { border: 1px solid #ccc; padding: 6px 8px; vertical-align: top; }
+    table.nested th { background: #e9e9e9; font-size: 0.9em; }
+    table.nested th:nth-child(1), table.nested td:nth-child(1) { width: 160px; }
+
+    .run-table-wrapper {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #bbb;
+      margin-top: 8px;
+
+      border-left: 2px solid #ddd;
+      padding-left: 12px;
+      margin-bottom: 10px;
+    }
+    .run-master-row { cursor: pointer; }
+    .run-master-row:hover { background: #eef3ff; }
+
+    .page-container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    tr.master-row:nth-child(odd) { background: #fafafa; }
+    tr.master-row:hover { background: #e9f2ff; }
+    tr.master-row td { font-size: 15px; position: relative; font-weight: 600; }
+    tr.master-row td::before { content: ""; position: absolute; left: 10px; top: 0; bottom: 0; width: 1px; background: #d8d8d8; }
+    .arrow {
+      display: inline-block;
+      width: 16px;
+      text-align: center;
+      font-family: monospace;
+      color: #555;
+    }
+
+    pre { margin: 0; font-family: monospace; font-size: 12px; line-height: 1.35; white-space: pre-wrap; max-height: 160px; overflow: auto; }
+
+    .highlight { background: yellow; }
+
+    .field-name { background: #f4f4f4; font-weight: 600; white-space: nowrap; }
+
+      /* Tooltip inline element (blue, help cursor) */
+  .tooltip {
+    color: #1a73e8;        /* blue */
+    cursor: help;           /* question mark cursor */
+    position: relative;
+    text-decoration: underline dotted; /* subtle underline hint */
+  }
+
+  /* Popup tooltip */
+  .tooltip-popup {
+    position: absolute;
+    background: #333;
+    color: #fff;
+    padding: 6px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    max-width: 800px;
+    overflow-wrap: break-word;
+    z-index: 9999;
+    white-space: pre-wrap;
+    pointer-events: none; /* allows mouse to move over without blocking */
+  }
+
+  .controls{
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+
+  button{
+    margin-right:10px;
+  }

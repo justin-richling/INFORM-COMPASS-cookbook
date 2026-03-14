@@ -1,0 +1,67 @@
+{
+        "nudge_model": "<u>nudge_model</u>\nToggle to activate nudging.\nTrue = Nudging ON\nFalse = Nudging OFF",
+
+        "nudge_path": "<u>nudge_path</u>\nPath to target files containing nudging data.",
+
+        "nudge_file_template": "<u>nudge_file_template</u>\nTarget filename template with year, month, day, and second values replaced by %y, %m, %d, and %s respectively.",
+
+        "nudge_times_per_day": "<u>nudge_times_per_day</u>\nNumber of target files per day.\nExample: 4 = 6-hourly data",
+
+        "model_times_per_day": "<u>model_times_per_day</u>\nNumber of times per day that nudging tendencies are updated.\nMust be longer than the model timestep and shorter than the target timestep.",
+
+        "nudge_uprof": "<u>nudge_uprof</u>\nSelectively apply nudging to U:\nOFF = Switch off nudging\nON = Apply nudging everywhere\nWINDOW = Apply window function\n0 = OFF\n1 = ON\n2 = WINDOW",
+
+        "nudge_vprof": "<u>nudge_vprof</u>\nSelectively apply nudging to V:\nOFF = Switch off nudging\nON = Apply nudging everywhere\nWINDOW = Apply window function\n0 = OFF\n1 = ON\n2 = WINDOW",
+
+        "nudge_tprof": "<u>nudge_tprof</u>\nSelectively apply nudging to T:\nOFF = Switch off nudging\nON = Apply nudging everywhere\nWINDOW = Apply window function\n0 = OFF\n1 = ON\n2 = WINDOW",
+
+        "nudge_qprof": "<u>nudge_qprof</u>\nSelectively apply nudging to Q:\nOFF = Switch off nudging\nON = Apply nudging everywhere\nWINDOW = Apply window function\n0 = OFF\n1 = ON\n2 = WINDOW",
+
+        "nudge_ucoef": "<u>nudge_ucoef</u>\nSelectively adjust the nudging strength applied to U.\nNormalized coefficient [0.,1.]",
+
+        "nudge_vcoef": "<u>nudge_vcoef</u>\nSelectively adjust the nudging strength applied to V.\nNormalized coefficient [0.,1.]",
+
+        "nudge_tcoef": "<u>nudge_tcoef</u>\nSelectively adjust the nudging strength applied to T.\nNormalized coefficient [0.,1.]",
+
+        "nudge_qcoef": "<u>nudge_qcoef</u>\nSelectively adjust the nudging strength applied to Q.\nNormalized coefficient [0.,1.]",
+
+        "nudge_beg_year": "<u>nudge_beg_year</u>\nYear to begin nudging.\nFormat: YYYY",
+
+        "nudge_beg_month": "<u>nudge_beg_month</u>\nMonth to begin nudging.\nRange: 1–12",
+
+        "nudge_beg_day": "<u>nudge_beg_day</u>\nDay to begin nudging.\nRange: 1–31",
+
+        "nudge_end_year": "<u>nudge_end_year</u>\nYear to stop nudging.\nFormat: YYYY",
+
+        "nudge_end_month": "<u>nudge_end_month</u>\nMonth to stop nudging.\nRange: 1–12",
+
+        "nudge_end_day": "<u>nudge_end_day</u>\nDay to stop nudging.\nRange: 1–31",
+
+        "nudge_hwin_lat0": "<u>nudge_hwin_lat0</u>\nSpecify the horizontal center of the window (lat0) in degrees.\n[-90., +90.]",
+
+        "nudge_hwin_lon0": "<u>nudge_hwin_lon0</u>\nSpecify the horizontal center of the window (lon0) in degrees.\n[0., 360.]",
+
+        "nudge_hwin_latwidth": "<u>nudge_hwin_latwidth</u>\nLatitude width of the horizontal window in degrees.\nLarge values make the window constant in latitude.\n>0",
+
+        "nudge_hwin_lonwidth": "<u>nudge_hwin_lonwidth</u>\nLongitude width of the horizontal window in degrees.\nLarge values make the window constant in longitude.\n>0",
+
+        "nudge_hwin_latdelta": "<u>nudge_hwin_latdelta</u>\nLatitude transition length for the horizontal window.\nControls smoothing of the window edge.",
+
+        "nudge_hwin_londelta": "<u>nudge_hwin_londelta</u>\nLongitude transition length for the horizontal window.\nControls smoothing of the window edge.",
+
+        "nudge_hwin_invert": "<u>nudge_hwin_invert</u>\nLogical flag to invert the horizontal window function.\nTrue/False",
+
+        "nudge_vwin_hindex": "<u>nudge_vwin_hindex</u>\nVertical window high index.\nModel level index where the upper transition begins.",
+
+        "nudge_vwin_lindex": "<u>nudge_vwin_lindex</u>\nVertical window low index.\nModel level index where the lower transition begins.",
+
+        "nudge_vwin_hdelta": "<u>nudge_vwin_hdelta</u>\nVertical window high delta.\nTransition thickness near the high index.",
+
+        "nudge_vwin_ldelta": "<u>nudge_vwin_ldelta</u>\nVertical window low delta.\nTransition thickness near the low index.",
+
+        "nudge_vwin_invert": "<u>nudge_vwin_invert</u>\nLogical flag to invert the vertical window function.\nTrue/False",
+
+        "nudge_timescale_opt": "<u>nudge_timescale_opt</u>\nTimescale for relaxation:\nWEAK = Constant\nSTRONG = Variable\n0 = WEAK\n1 = STRONG",
+
+        "nudge_force_opt": "<u>nudge_force_opt</u>\nTarget value form:\nNEXT = Target at next future time\nLINEAR = Linear interpolation\n0 = NEXT\n1 = LINEAR"
+}
