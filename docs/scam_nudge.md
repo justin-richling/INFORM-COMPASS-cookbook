@@ -113,33 +113,32 @@ set GET_REFCASE=TRUE
 
 ## Run the third experiment, the SCAM run
 1. Set up for the third experiment. SCAM will accept a global IOP file and use namelist variables to extract the correct column inline. The `*h1i*nc` IOP files from the second run contain the variables that SCAM needs (Ps, u, v, etc.)
-
- * Copy the IOP file from exp 2 for the correct dates to $SCRATCH
+   * Copy the IOP file from exp 2 for the correct dates to $SCRATCH
 RF01 takes off on Jan 15 and lands on Jan 16 so concatenate those two days to an RF01 iopfile using ncrcat.
-```tcsh
-> module load nco (if you haven't already)
-> ncrcat /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.rf01.cosp/run/f.e*window*h1i*2018-01-1[56]*nc /glade/derecho/scratch/$USER/rf01.IOP.nc
-```
-You can cat as many dates as you like; at some point the IOP file size will be the limitation. At that point you might subset each of the files to just include the lat/lon of interest of perhaps just the SOCRATES region and then cat those together.
+   ```tcsh
+   > module load nco (if you haven't already)
+   > ncrcat /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.rf01.cosp/run/f.e*window*h1i*2018-01-1[56]*nc /glade/derecho/scratch/$USER/rf01.IOP.nc
+   ```
+   You can cat as many dates as you like; at some point the IOP file size will be the limitation. At that point you might subset each of the files to just include the lat/lon of interest of perhaps just the SOCRATES region and then cat those together.
 For example if you know the index of the column you need (correct lat/lon) then you could extract that column and concatenate all of january using:
-```
-ncrcat -d ncol,32326 -d ncol_d,32326 ...
-```
- * modify create_CAM6_ne30_SCAM_RUN script to set REFCASE variables, paths, and dates as done for the second experiment.
- * set PTS_LAT and PTS_LON variables in the script to point to the column you would like to simulate. The PTS_LAT and PTS_LON should point to a column in SOCRATES area.
-```tcsh
-> cd $HOME/collections/INFORM-COMPASS-cookbook/SCAM_scripts
-> emacs create_CAM6_ne30_SCAM_RUN
-```
- * modify the following line to point to your iop file
-```tcsh
-iopfile = '/glade/derecho/scratch/$USER/rf01.IOP.nc'
-```
-* modify PTS_LAT and PTS_LON to point to the column you want to simulate. To find a lat/lon along the flight track for this flight, visit the [SOCRATES catalog maps](http://catalog.eol.ucar.edu/maps/socrates) and use the playback functionality to set the Date / Time to the end of the flight. Click on a wind barb on the flight track to see the lat/lon at that location. The following is a lat/lon from the return leg where it doglegs to the left.
-```
-set PTS_LON=152.658997
-set PTS_LAT=-54.957001
-```
+   ```tcsh
+   ncrcat -d ncol,32326 -d ncol_d,32326 ...
+   ```
+   * modify create_CAM6_ne30_SCAM_RUN script to set REFCASE variables, paths, and dates as done for the second experiment.
+   * set PTS_LAT and PTS_LON variables in the script to point to the column you would like to simulate. The PTS_LAT and PTS_LON should point to a column in SOCRATES area.
+   ```tcsh
+   > cd $HOME/collections/INFORM-COMPASS-cookbook/SCAM_scripts
+   > emacs create_CAM6_ne30_SCAM_RUN
+   ```
+   * modify the following line to point to your iop file
+   ```tcsh
+   iopfile = '/glade/derecho/scratch/$USER/rf01.IOP.nc'
+   ```
+   * modify PTS_LAT and PTS_LON to point to the column you want to simulate. To find a lat/lon along the flight track for this flight, visit the [SOCRATES catalog maps](http://catalog.eol.ucar.edu/maps/socrates) and use the playback functionality to set the Date / Time to the end of the flight. Click on a wind barb on the flight track to see the lat/lon at that location. The following is a lat/lon from the return leg where it doglegs to the left.
+   ```tcsh
+   set PTS_LON=152.658997
+   set PTS_LAT=-54.957001
+   ```
 
 1. Run SCAM
 ```tcsh
