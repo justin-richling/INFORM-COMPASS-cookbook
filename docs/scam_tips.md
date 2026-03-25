@@ -16,11 +16,18 @@ permalink: /scam_tips/ # Allows _layouts/default.html to find this page.
 ## To check the status of the run:
 ```tcsh
 > cd $SCRATCH/cases/<your_case_name>
-> more CaseStatus
+> tail CaseStatus
 -or-
 > qstat -u <YOUR_USERNAME>
 ```
 [qstat documentation](https://ncar-hpc-docs.readthedocs.io/en/latest/pbs/?h=qstat#qstat)
+
+The atm*log file also often has useful info:
+```tcsh
+> cd $SCRATCH/cases/<your_case_name>/run
+> ls -lt (to find the most recent atm.log file)
+> tail atm.log.<most_recent>*
+```
 
 ## To delete a run
 ```tcsh
