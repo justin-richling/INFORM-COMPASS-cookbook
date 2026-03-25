@@ -147,9 +147,18 @@ For example if you know the index of the column you need (correct lat/lon) then 
 ```
 
 1. See what the third experiment generated
-```tcsh
-> cd /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_3days_scam.rf01.cosp/run
-```
+   * Confirm the run completed
+   ```tcsh
+   > cd /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_3days_scam.rf01.cosp/run
+   > ls -rt
+   > zcat <last_atm_file> | tail -10
+   ```
+   You will see ******* END OF MODEL RUN ******* if the run completed successfully, or an error.
+   * The *h0i* and *h1i* files are the final data. View them with ncview
+   ```tcsh
+   > module add ncview
+   > ncview <h0i_file>
+   ```
 
 ## Next steps
 

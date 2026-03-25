@@ -13,7 +13,7 @@ You will need to run the scripts from Derecho so you can access the ERA5 data st
 ## Login to Derecho
 See [Logging in with Duo](https://ncar-hpc-docs.readthedocs.io/en/latest/getting-started/accounts/duo/#logging-in-with-duo) for details on authenticating
 ```tcsh
-> ssh -X <YOUR_USERNAME>@derecho.hpc.ucar.edu
+> ssh -Y <YOUR_USERNAME>@derecho.hpc.ucar.edu
 ```
 * When it asks for ncar-two-factor, enter your CIT password.
 * Authenticate with DUO
