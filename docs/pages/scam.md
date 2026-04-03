@@ -3,17 +3,17 @@ layout: default # Tells Jekyll to wrap this content with _layouts/default.html
 title: Configure SCAM # Shows up as the text in the browser tab
 ---
 
-# Running SCAM
+### Running SCAM
 
-## Introduction
+#### Introduction
 SCAM, the [Single Column Atmosphere Model](https://www.cesm.ucar.edu/models/simple/scam) is a single column model version of the [Community Atmospheric Model (CAM)](https://www.cesm.ucar.edu/models/cam), a global atmosphere model developed at NSF NCAR for the weather and climate research communities.
 
 This page describes the basic setup for running SCAM. Once you have this configured you can [Create Nudged IOP forcing using CAM for use with SCAM]({{ site.baseurl }}/scam_nudge/) or [run scamTEST]({{ site.baseurl }}/scam_test/) to ensure your setup is correct.
 
-## Login to Derecho
+#### Login to Derecho
 SCAM can be run from the Derecho supercomputer at NCAR. If you haven't already, [login to derecho and clone the repo]({{ site.baseurl }}/derecho/)
 
-## Set up your environment
+#### Set up your environment
 Load the nco module so you can access ncrcat (which you will use during the third experiment setup).
 ```
 > module load nco
@@ -21,7 +21,7 @@ Load the nco module so you can access ncrcat (which you will use during the thir
 ```
 You will now see (L) after `nco/<version>` in the output of the `module av` command indicating that nco has been loaded. **You will have to do this each time you login - it does not persist between login sessions**
 
-## Identify available projects/accounts
+#### Identify available projects/accounts
 Running SCAM on the Derecho supercomputer requires access to CPU core-hours.  You can find out which projects/accounts are linked to your login via the Systems Accounting Manager webpage
 
 &nbsp;&nbsp;&nbsp;&nbsp;[https://sam.ucar.edu](https://sam.ucar.edu)
@@ -43,7 +43,7 @@ where xxxxxxxx is the actual project where you have access. If there are no proj
 To get more info on how many hours are available for each account, login to SAM as described above, click on a project under reports and view it.
 
 
-## Create a scratch directory
+#### Create a scratch directory
 You will need to configure a scratch directory where SCAM can write files. Each Derecho user should have a /glade/derecho/scratch directory. Create a scam dir under your scratch dir.
 ```tcsh
 > ls /glade/derecho/scratch/<YOUR_USERNAME>

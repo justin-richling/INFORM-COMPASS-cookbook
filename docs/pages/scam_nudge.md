@@ -3,7 +3,7 @@ layout: default # Tells Jekyll to wrap this content with _layouts/default.html
 title: Run SCAM nudging # Shows up as the text in the browser tab
 ---
 
-# Create Nudged IOP forcing using CAM for use with SCAM
+### Create Nudged IOP forcing using CAM for use with SCAM
 
 This procedure will generate IOP forcing data associated with the dates and area of the SOCRATES field campaign to use with SCAM.
 
@@ -31,7 +31,7 @@ The steps outlined below place the CAM code and COMPASS-cookbook underneath your
 
 Before you begin, you may find it useful to review the [SCAM Tips]({{ site.baseurl }}/scam_tips/) page.
 
-## Configure your work area
+#### Configure your work area
 
 1. Create the collections and case directories and check out your own version of the CAM code.
 ```tcsh
@@ -71,7 +71,7 @@ Before you begin, you may find it useful to review the [SCAM Tips]({{ site.baseu
 > source ~/.tcshrc (just needed the first time, will be run automatically each time you login in the future)
 ```
 
-## Run the first globally nudged experiment
+#### Run the first globally nudged experiment
 
 ```tcsh
 > cd $HOME/collections/INFORM-COMPASS-cookbook/SCAM_scripts
@@ -85,7 +85,7 @@ You can check the status of the run, or delete it, using the scam commands descr
 > ls -al *.cam.h*
 ```
 
-## Run the second experiment
+#### Run the second experiment
 
 1. Set up the second experiment to generate the IOP data for the SCAM run.
 *  Modify the following script variables to specify the dates that you want to generate IOP data for. As an example the following variables are set for the first SOCRATES flight RF01 that began Jan 15 2018.
@@ -112,7 +112,7 @@ set GET_REFCASE=TRUE
 > cd /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.rf01.cosp/run
 ```
 
-## Run the third experiment, the SCAM run
+#### Run the third experiment, the SCAM run
 1. Set up for the third experiment. SCAM will accept a global IOP file and use namelist variables to extract the correct column inline. The `*h1i*nc` IOP files from the second run contain the variables that SCAM needs (Ps, u, v, etc.)
    * Copy the IOP file from exp 2 for the correct dates to $SCRATCH
 RF01 takes off on Jan 15 and lands on Jan 16 so concatenate those two days to an RF01 iopfile using ncrcat.
@@ -161,7 +161,7 @@ For example if you know the index of the column you need (correct lat/lon) then 
    > ncview <h0i_file>
    ```
 
-## Next steps
+#### Next steps
 
 These experiments should be analyzed and improved through several iterations.  Some items for consideration:
 * How long a spin up is needed to bring the CAM into a quasi equilibrated state for the SOCRATES start dates?  Our first run started 2 weeks before SOCRATES start.
