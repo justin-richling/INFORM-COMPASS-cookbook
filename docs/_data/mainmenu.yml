@@ -1,6 +1,6 @@
 menu:
   - title: Accessing Derecho
-    url: /pages/derecho
+    url: pages/derecho
 #    submenu:
 #      - title: Submenu Item
 #        url: /pages/submenu.html

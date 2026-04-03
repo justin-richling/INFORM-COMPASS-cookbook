@@ -13,7 +13,8 @@ banner-button-url: https://github.com/NCAR/INFORM-COMPASS-cookbook
 <a href="https://github.com/NCAR/INFORM-COMPASS-cookbook/blob/main/CHANGELOG.md">
   <img src="https://img.shields.io/badge/updates-CHANGELOG-4a69bd" alt="Changelog">
 </a> &nbsp; &nbsp;
-  <img src="https://img.shields.io/badge/Status-under%20development-yellow" alt="Status Badge"
+  <img src="https://img.shields.io/badge/Status-under%20development-yellow" alt="Status Badge">
+
 ### Introduction
 
 <div style="padding: 16px; margin-bottom: 16pt; border-left: .25em solid #0969da; background-color: #f0f7ff; border-radius: 6px;">
@@ -26,6 +27,6 @@ The goal of INFORM-COMPASS is to ....
 
 This cookbook ....
 
-### CITATION
+#### CITATION
 
 As this repository is under development, please reach out to us before citing this work and we will provide a DOI and guidance at that time.
