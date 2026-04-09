@@ -88,7 +88,7 @@ set RUNDIR=${CASEDIR}/${CASENAME}/run
 #  set user specific namelist settings
 #------------------
 
-cat >> user_nl_cam << EOF
+cat > user_nl_cam << EOF
 inithist = 'CAMIOP'
 inithist_all = .true.
 NDENS    = 1,1
@@ -98,14 +98,14 @@ scale_dry_air_mass              =   0.0D0
 write_nstep0           = .true.
 EOF
 
-cat >> user_nl_clm << EOFclm
+cat > user_nl_clm << EOFclm
 fsurdat = '/glade/p/cesmdata/inputdata/lnd/clm2/surfdata_esmf/ctsm5.3.0/surfdata_ne3np4_hist_2000_78pfts_c240925.nc'
 hist_nhtfrq = 0,1
 hist_mfilt  = 1,10
 hist_ndens  = 1,1
 EOFclm
 
-cat >> user_nl_cpl << EOFcpl
+cat > user_nl_cpl << EOFcpl
 reprosum_diffmax=1.0e-14
 reprosum_recompute=.true.
 EOFcpl

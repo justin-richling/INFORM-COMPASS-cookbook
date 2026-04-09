@@ -110,7 +110,7 @@ set RUNDIR=${CASEDIR}/${CASENAME}/run
 #  set user specific namelist settings
 #------------------
 
-cat >> user_nl_cam << EOF
+cat > user_nl_cam << EOF
 NDENS    = 1,1
 MFILT    = 10,10
 nhtfrq   = 1,1
@@ -126,7 +126,7 @@ scale_dry_air_mass              =   0.0D0
 write_nstep0           = .true.
 EOF
 
-cat >> user_nl_clm << EOFclm
+cat > user_nl_clm << EOFclm
 use_init_interp = .true.
 init_interp_method = 'general'
 finidat = '/fs/cgd/csm/inputdata/lnd/clm2/initdata_map/clmi.F2000.2000-01-01.ne120pg3_mt13_simyr2000_c200728.nc'
@@ -135,7 +135,7 @@ hist_mfilt  = 1,10
 hist_ndens  = 1,1
 EOFclm
 
-cat >> user_nl_cpl << EOFcpl
+cat > user_nl_cpl << EOFcpl
 reprosum_diffmax=1.0e-14
 reprosum_recompute=.true.
 EOFcpl
