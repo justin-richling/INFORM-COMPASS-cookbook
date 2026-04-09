@@ -91,34 +91,37 @@ You can check the status of the run, or delete it, using the scam commands descr
 *  Modify the following script variables to specify the dates that you want to generate IOP data for. As an example the following variables are set for the first SOCRATES flight RF01 that began Jan 15 2018.
 ```tcsh
 set RUN_STARTDATE=2018-01-15
+set RUN_REFDATE=2018-01-15
+set EXP=rf01.cosp
+
 set STOP_OPTION=ndays
 set STOP_N=3
 set REST_OPTION=${STOP_OPTION}
 set REST_N=${STOP_N}
 set RUN_REFCASE=f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQsoc_full_withCOSP_tau6h_2months_inithist.100.cosp
-set RUN_REFDATE=2018-01-15
 set RUN_REFDIR=/glade/derecho/scratch/$USER/cases/${RUN_REFCASE}/run
 set GET_REFCASE=TRUE
 ```
+You also might want to change the filename to reflect the new flight number and date.
 
 1. Run the second experiment to generate IOP data for SCAM.
 ```tcsh
 > cd $HOME/collections/INFORM-COMPASS-cookbook/SCAM_scripts
-> qcmd -- ./create_CAM6_ne30_Window_Nudged_SOCRATES_CAMIOP_Jan-15-16_RF01
+> qcmd -- ./create_CAM6_ne30_Window_Nudged_SOCRATES_CAMIOP_<flight designation>
 ```
 
 1. See what the second experiment generated
 ```tcsh
-> cd /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.rf01.cosp/run
+> cd /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.<flight>.cosp/run
 ```
 
 #### Run the third experiment, the SCAM run
 1. Set up for the third experiment. SCAM will accept a global IOP file and use namelist variables to extract the correct column inline. The `*h1i*nc` IOP files from the second run contain the variables that SCAM needs (Ps, u, v, etc.)
    * Copy the IOP file from exp 2 for the correct dates to $SCRATCH
-RF01 takes off on Jan 15 and lands on Jan 16 so concatenate those two days to an RF01 iopfile using ncrcat.
+For example, RF01 takes off on Jan 15 and lands on Jan 16 so concatenate those two days to an RF01 iopfile using ncrcat. Change the dates and flights as needed below.
    ```tcsh
    > module load nco (if you haven't already)
-   > ncrcat /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.rf01.cosp/run/f.e*window*h1i*2018-01-1[56]*nc /glade/derecho/scratch/$USER/rf01.IOP.nc
+   > ncrcat /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop.<flight>.cosp/run/f.e*window*h1i*2018-01-1[56]*nc /glade/derecho/scratch/$USER/<flight>.IOP.nc
    ```
    You can cat as many dates as you like; at some point the IOP file size will be the limitation. At that point you might subset each of the files to just include the lat/lon of interest of perhaps just the SOCRATES region and then cat those together.
 For example if you know the index of the column you need (correct lat/lon) then you could extract that column and concatenate all of january using:
@@ -133,7 +136,7 @@ For example if you know the index of the column you need (correct lat/lon) then 
    ```
    * modify the following line to point to your iop file
    ```tcsh
-   iopfile = '/glade/derecho/scratch/$USER/rf01.IOP.nc'
+   iopfile = '/glade/derecho/scratch/$USER/<flight>.IOP.nc'
    ```
    * modify PTS_LAT and PTS_LON to point to the column you want to simulate. To find a lat/lon along the flight track for this flight, visit the [SOCRATES catalog maps](http://catalog.eol.ucar.edu/maps/socrates) and use the playback functionality to set the Date / Time to the end of the flight. Click on a wind barb on the flight track to see the lat/lon at that location. The following is a lat/lon from the return leg where it doglegs to the left.
    ```tcsh
@@ -150,7 +153,7 @@ For example if you know the index of the column you need (correct lat/lon) then 
 1. See what the third experiment generated
    * Confirm the run completed
    ```tcsh
-   > cd /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_3days_scam.rf01.cosp/run
+   > cd /glade/derecho/scratch/$USER/cases/f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_3days_scam.<flight>.cosp/run
    > ls -rt
    > zcat <last_atm_file> | tail -10
    ```

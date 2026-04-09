@@ -17,14 +17,18 @@ set CASEID=SOCRATES_nudgeUVTQwindow_withCOSP_tau6h_3days_camiop
 ### Run Configuration
 
 set RUN_TYPE=hybrid
-# Select a startdate and run_refdate that corresponds with a flight date below
+
+#### Select a startdate and run_refdate that corresponds with
+#### a flight date below
 set RUN_STARTDATE=2018-01-15
+set RUN_REFDATE=2018-01-15
+set EXP=rf01.cosp
+
 set STOP_OPTION=ndays
 set STOP_N=3
 set REST_OPTION=${STOP_OPTION}
 set REST_N=${STOP_N}
 set RUN_REFCASE=f.e30.cam6_4_120.FHIST_BGC.ne30_ne30_mg17.SOCRATES_nudgeUVTQsoc_full_withCOSP_tau6h_2months_inithist.100.cosp
-set RUN_REFDATE=2018-01-15
 set RUN_REFDIR=/glade/derecho/scratch/$USER/cases/${RUN_REFCASE}/run
 set GET_REFCASE=TRUE
 
@@ -37,7 +41,6 @@ set COMPILER=intel
 set QUEUE=main
 #set PES='--pecount 32'
 set PES=''   # use default number of processors
-set EXP=rf01.cosp
 
 ### SOCRATES FLIGHT TIMES
 ### Taken from https://doi.org/10.5065/D6M32TM9
