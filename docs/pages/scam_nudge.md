@@ -89,7 +89,6 @@ You can check the status of the run, or delete it, using the scam commands descr
 
 1. Set up the second experiment to generate the IOP data for the SCAM run.
 *  Modify the following script variables to specify the dates that you want to generate IOP data for. As an example the following variables are set for the first SOCRATES flight RF01 that began Jan 15 2018.
-
 ```tcsh
 set RUN_STARTDATE=2018-01-15
 set RUN_REFDATE=2018-01-15
