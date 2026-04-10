@@ -86,7 +86,8 @@ endif
 #Create full casename
 
 cd  $CASEDIR
-set CASENAME=${CASETITLE}.${COMPSET_TITLE}.${RES}.${CASEID}.${FLIGHT}.cosp
+set EXP=${FLIGHT}.cosp
+set CASENAME=${CASETITLE}.${COMPSET_TITLE}.${RES}.${CASEID}.${EXP}
 
 ### create case
 
