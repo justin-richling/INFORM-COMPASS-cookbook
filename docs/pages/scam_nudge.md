@@ -162,10 +162,12 @@ For example if you know the index of the column you need (correct lat/lon) then 
    > zcat <last_atm_file> | tail -10
    ```
    You will see ******* END OF MODEL RUN ******* if the run completed successfully, or an error.
-   * The *h0i* and *h1i* files are the final data. View them with ncview
+   * The *3days*h[01]i* files are the final data. View them with ncview
    ```tcsh
    > module add ncview
+   > ls *3days*h[01]i*
    > ncview <h0i_file>
+   > ncview <h1i_file>
    ```
 
 #### Next steps
