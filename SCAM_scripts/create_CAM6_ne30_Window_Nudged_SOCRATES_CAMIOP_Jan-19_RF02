@@ -20,10 +20,10 @@ set RUN_TYPE=hybrid
 
 #### Select a startdate and run_refdate that corresponds with
 #### a flight date below
-set RUN_STARTDATE=2018-01-15 # RF01
-set RUN_REFDATE=2018-01-15 # RF01
-set EXP=rf01.cosp # RF01
-set WALLTIME=00:40:00
+set RUN_STARTDATE=2018-01-19 # RF02
+set RUN_REFDATE=2018-01-19 # RF02
+set EXP=rf02.cosp # RF02
+set WALLTIME=01:00:00
 
 set STOP_OPTION=ndays
 set STOP_N=3
