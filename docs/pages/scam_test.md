@@ -16,12 +16,13 @@ You will run two files (**after making the changes below**):
 
 #### Edit the .derecho files
 Edit the two SCAM .derecho files. Add your project to the create_newcase line
-
+```tcsh
 > $CESMDIR/cime/scripts/create_newcase -compset $COMPSET  **--project Pxxxxxxxx** -res $RES -compiler $COMPILER -case $CASEDIR/$CASENAME  -pecount ${PES} --run-unsupported
-
+```
 Change the CASEDIR to point to your scratch scam dir.
-
+```tcsh
 > set CASEDIR=/glade/derecho/scratch/<YOUR_USERNAME>/scam
+```
 
 ##### Modify the scripts to point to the CESM collection directory
 These collections are currently stored under John Truesdale's campaign dir so we are using that. Edit the SCAM .derecho scripts to set this directory.
@@ -31,9 +32,9 @@ These collections are currently stored under John Truesdale's campaign dir so we
     <strong> Note:</strong> Need to move these to a more generic location
   </p>
 </div>
-
+```tcsh
 > set CESMDIR=/glade/campaign/cgd/amp/jet/collections/$CAMDIRNAME
-
+```
 #### Run the first file
 
 <div style="padding: 16px; margin-bottom: 16pt; border-left: .25em solid #0969da; background-color: #f0f7ff; border-radius: 6px;">
