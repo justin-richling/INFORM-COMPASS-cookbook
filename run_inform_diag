@@ -1,0 +1,218 @@
+#!/usr/bin/env python3
+
+"""
+script: run_compass_diag
+
+goal:  To allow a user to easily run the INFORM diagnostics package from
+       the command line.
+
+Inputs:  The ICF diagnostics config file (in YAML format).  If the file is
+         located in a different directory then the system path must also be
+         included.
+
+Any problems or issues with this script should be posted on the
+ICF Github Discussions page located online here:
+
+https://github.com/NCAR/INFORM-COMPASS-cookbook/discussions
+
+Please note that registration may be required before a message can
+be posted.  However, feel free to search the forums for similar issues
+(and possible solutions) without needing to register or sign in.
+
+Good luck, and may all your plots be helpful!
+"""
+
+#++++++++++++++++++++++++++++++
+#Import standard python modules
+#++++++++++++++++++++++++++++++
+
+import os.path
+import sys
+import argparse
+
+#+++++++++++++++++++++++++++++
+#Import ICF diagnostics module
+#+++++++++++++++++++++++++++++
+
+#Determine local directory path:
+_LOCAL_PATH = os.path.dirname(os.path.abspath(__file__))
+
+#Add lib directory to path:
+_DIAG_LIB_PATH = os.path.join(_LOCAL_PATH,"lib")
+
+#Check that path actually exists:
+if os.path.isdir(_DIAG_LIB_PATH):
+    #If true, then add to Python path:
+    sys.path.append(_DIAG_LIB_PATH)
+else:
+    #If not, then raise error:
+    raise FileNotFoundError("'./lib' directory not found. Has 'run_adf_diag' been moved?")
+
+#Import ICF diagnostics object:
+from icf_diag import ICFDiag
+
+#Import ICF diagnostics error class:
+from icf_base import ICFError
+
+#################
+#Helper functions
+#################
+
+#++++++++++++++++++++++++++++++
+#Input argument parser function
+#++++++++++++++++++++++++++++++
+
+def parse_arguments():
+
+    """
+    Parses command-line input arguments using the argparse
+    python module and outputs the final argument object.
+    """
+
+    #Create parser object:
+    parser = argparse.ArgumentParser(description='Command-line wrapper to run the ICF diagnostics package.')
+
+    #Add input arguments to be parsed:
+    #--------------------------------
+    #Flag methods to point to a INFORM-CGD config files.
+    parser.add_argument('--model-state', '--model_state', action='store', type=str,
+                        help="YAML file used to configure CAM/COMPASS diagnostics for model state assessment.")
+    parser.add_argument('--model-cloud-state', '--model_cloud_state', action='store', type=str,
+                        help="YAML file used to configure CAM/COMPASS diagnostics for cloud state assessment.")
+    #parser.add_argument('--composite-data', '--composite_data', action='store', type=str,
+    #                    help="YAML file used to configure CAM/COMPASS diagnostics for cloud microphysics assessment.")
+    parser.add_argument('--campaign-cloud-micro', '--campaign_cloud_micro', action='store', type=str,
+                        help="YAML file used to configure CAM/COMPASS diagnostics for cloud microphysics assessment.")
+    
+    parser.add_argument('configure_file', nargs='?', action='store', type=str,
+                        help="YAML file used to configure CAM/INFORM diagnostics.")
+    parser.add_argument('--config-file', '--config_file', '--config', dest='config_file', metavar='<DIAG_YAML_FILE>', action='store', type=str,
+                        help="YAML file used to configure CAM/INFORM diagnostics.")
+
+    #Debug setting:
+    parser.add_argument('--debug', action='store_true', help="Turn on debug output.")
+    #--------------------------------
+
+    #Parse Argument inputs
+    args = parser.parse_args()
+
+    """#If no config file argument is present, then throw an error:
+    if (not args.campaign_cloud_micro) and (not args.model_cloud_state) and (not args.model_state):
+        emsg = "No Config file found, please run 'run_compass_diag <DIAG_YAML_FILE>'.\n"
+        emsg +="Where <DIAG_YAML_FILE> is the name of the yaml file used to configure for one of the INFORM-CGD steps"
+        parser.error(emsg)"""
+    
+    #If no config file argument is present, then throw an error:
+    if (not args.configure_file) and (not args.config_file) and (not args.campaign_cloud_micro) and (not args.model_cloud_state) and (not args.model_state):
+        emsg = "No Config file found, please run 'run_diag <DIAG_YAML_FILE>'.\n"
+        emsg +="Where <DIAG_YAML_FILE> is the name of the yaml file used to configure"
+        emsg +="the diagnostics package."
+        parser.error(emsg)
+
+    return args
+
+
+def plotting_script_requested(script_name, scripts_list):
+    """Check recursively whether a plotting script is requested in the config."""
+    for item in scripts_list:
+        if isinstance(item, str):
+            if item == script_name:
+                return True
+        elif isinstance(item, dict):
+            key = next(iter(item))
+            if key == script_name:
+                return True
+            value = item[key]
+            if isinstance(value, list):
+                if plotting_script_requested(script_name, value):
+                    return True
+    return False
+
+############################
+#Main CAM diagnostics script
+############################
+
+#Run code below if command is called
+#directly from the command line:
+if __name__ == "__main__":
+
+    #+++++++++++++++++++++
+    #Begin ICF diag script
+    #+++++++++++++++++++++
+    print('INFORM-CGD diagnostics is starting...')
+
+    #+++++++++++++++++++++++++++++++++++++++++++
+    #Check that python is version 3.6 or greater
+    #+++++++++++++++++++++++++++++++++++++++++++
+
+    if sys.version_info[0] < 3:
+        raise ICFError("Script only works with Python 3. Please switch python versions.")
+
+    if sys.version_info[1] < 6:
+        raise ICFError("Script only works with Python version 3.6 or greater.  Please update python.")
+
+    #++++++++++++++++++++++++++++
+    #Parse command-line arguments
+    #++++++++++++++++++++++++++++
+    args = parse_arguments()
+
+    #Extract YAML config file name/path:
+    if args.configure_file:
+        config_yaml = args.configure_file
+    elif args.config_file:
+        config_yaml = args.config_file
+    elif args.campaign_cloud_micro:
+        config_yaml = args.campaign_cloud_micro
+    elif args.model_cloud_state:
+        config_yaml = args.model_cloud_state
+    elif args.model_state:
+        config_yaml = args.model_state
+    else:
+        raise ICFError("No config file found. Provide a YAML file positionally or with --config-file, --model-state, --model-cloud-state, or --campaign-cloud-micro.")
+    
+    #Extract debug flag:
+    config_debug = args.debug
+
+    #Initalize INFORM-CGD diagnostics object:
+    diag = ICFDiag(config_yaml, debug=config_debug)
+
+    #+++++++++++++++++++++++++++++++++
+    #Call main ICF diagnostics methods
+    #+++++++++++++++++++++++++++++++++
+    #Create model time series.
+    #Please note that this is an internal ICF function:
+    #diag.create_time_series()
+
+    #Create model climatology (climo) files.
+    #This call uses the "time_averaging_scripts" specified
+    #in the config file:
+    #diag.create_climo()
+
+    # Create composited dataset (if applicable)
+    if args.campaign_cloud_micro or plotting_script_requested(
+        "campaign_cloud_micro_analysis", diag.plotting_scripts
+    ):
+        diag.create_comp_ds()
+
+    #Perform analyses on the simulation(s).
+    #This call uses the "analysis_scripts" specified in the
+    #config file:
+    #diag.perform_analyses()
+
+    #Create plots.
+    #This call uses the "plotting_scripts" specified
+    #in the config file:
+    diag.create_plots()
+    print("\ndir(diag)",dir(diag))
+
+    #Create website.
+    #Please note that this is an internal ICF function:
+    if 1==1: #diag.create_html:
+        diag.create_website()
+
+
+    #+++++++++++++++
+    #End diag script
+    #+++++++++++++++
+    print('INFORM-CGD diagnostics has completed successfully.')
+    sys.exit(0)
