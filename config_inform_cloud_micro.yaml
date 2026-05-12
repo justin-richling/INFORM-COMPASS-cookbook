@@ -1,0 +1,48 @@
+# TEST
+# Configuration file for COMPASS Cloud Microphysics
+#
+
+#user: 'richling'
+# image location (if applicable)
+diag_loc: /glade/derecho/scratch/richling/icf-output/tests/icf-plots
+
+# Add research campaigns
+campaigns:
+    'SOCRATES':
+        composited_data: /glade/derecho/scratch/richling/inform/composited-data
+        redo_composited: false
+        air_1hz_dir: /glade/work/patnaude/SOCRATES/aircraft_1hz
+        #air_25hz_dir: /glade/work/patnaude/SOCRATES/aircraft_25hz
+        ccn_dir: /glade/work/patnaude/SOCRATES/CCN
+        campn_sonde_dir: /glade/work/patnaude/SOCRATES/dropsondes
+    #'CSET':
+    #    composited_data: /glade/derecho/scratch/richling/inform/composited-data
+    #    air_1hz_dir: /glade/work/patnaude/CSET/aircraft_1hz
+    #    air_25hz_dir: /glade/work/patnaude/CSET/aircraft_25hz # if you have it; else omit
+    #    ccn_dir: None
+    #    campn_sonde_dir: /glade/work/patnaude/CSET/dropsondes
+
+plotting_scripts:
+    - campaign_cloud_micro_analysis:
+        - flight_track_analysis:
+            #kwargs:
+            #  color_map:
+            #    Undetermined: "#CCCCCC"
+            #    Stratocumulus: "#0066CC"
+            #    Open-Cell: "#FF6600"
+            #  marker_map:
+            #    "In-Cloud Profiles": "D"
+            #    "Level BL": "*"
+            #    "Out-of-cloud Level FT": "P"
+            #    "In-Cloud Level FT": "H"
+            #  size_map:
+            #    "In-Cloud Profiles": 120
+            #    "Level BL": 100
+            #    "Out-of-cloud Level FT": 80
+            #    "In-Cloud Level FT": 80
+        - pdf_vertical_velocity
+        #- pdf_nd_lwc
+        #- profiles_by_regime_temperature
+        #- profiles_by_regime_velocity
+        - joint_pdf_analysis
+        #- insightful_scatter
